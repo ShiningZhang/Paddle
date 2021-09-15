@@ -171,6 +171,22 @@ PD_INFER_DECL int GetNumBytesOfDataType(DataType dtype);
 PD_INFER_DECL std::string GetVersion();
 PD_INFER_DECL std::string UpdateDllFlag(const char* name, const char* value);
 
+///
+/// \brief A func to help initialize distributed parallel environment.
+/// Need to be used with "-DWITH_DISTRIBUTE=ON".
+///
+/// \param[in] rank The local rank
+/// \param[in] nranks The size of all world ranks
+/// \param[in] selected_gpus The gpu id
+/// \param[in] trainer_endpoints The list of communicator's ip:port
+/// \param[in] current_endpoint Local communicator's ip:port
+/// \param[in] nrings The size of local rings
+///
+PD_INFER_DECL int init_parallel_env(
+    int rank, int nranks, const std::vector<int>& selected_gpus,
+    const std::vector<std::string>& trainer_endpoints,
+    const std::string& current_endpoint, int nrings);
+
 namespace services {
 ///
 /// \class PredictorPool
